@@ -1,0 +1,1502 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en" data-theme="light" data-accent="terra">
+<head>
+<meta charset="UTF-8">
+<title>Atelie — Local-first project notes for macOS</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;450;500;600;700&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+JP:wght@400;500;600;700&family=Noto+Serif+JP:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  /* ============================================================
+     ATELIE — Design tokens (ported from src/styles/tokens.css)
+     ============================================================ */
+  :root {
+    --bg-app: #f5f1ea;
+    --bg-surface: #faf7f2;
+    --bg-elev: #ffffff;
+    --bg-sunken: #efe9df;
+    --bg-hover: rgba(168, 117, 74, 0.06);
+    --bg-active: rgba(168, 117, 74, 0.12);
+
+    --ink-1: #2a221b;
+    --ink-2: #5b4f43;
+    --ink-3: #8a7c6c;
+    --ink-4: #b3a695;
+
+    --accent: #a8754a;
+    --accent-hover: #946338;
+    --accent-soft: #e8d5be;
+    --accent-tint: rgba(168, 117, 74, 0.10);
+    --accent-ink: #6b4423;
+
+    --line-1: rgba(60, 45, 30, 0.08);
+    --line-2: rgba(60, 45, 30, 0.14);
+    --line-3: rgba(60, 45, 30, 0.22);
+
+    --st-todo: #8a7c6c;     --st-todo-bg: rgba(138, 124, 108, 0.12);
+    --st-doing: #b8763a;    --st-doing-bg: rgba(184, 118, 58, 0.14);
+    --st-review: #7a6a45;   --st-review-bg: rgba(122, 106, 69, 0.14);
+    --st-done: #5b6f4a;     --st-done-bg: rgba(91, 111, 74, 0.14);
+    --st-blocked: #9c4a3a;  --st-blocked-bg: rgba(156, 74, 58, 0.14);
+
+    --shadow-1: 0 1px 2px rgba(60, 45, 30, 0.04);
+    --shadow-2: 0 1px 3px rgba(60, 45, 30, 0.05), 0 4px 12px rgba(60, 45, 30, 0.04);
+    --shadow-3: 0 4px 16px rgba(60, 45, 30, 0.08), 0 12px 32px rgba(60, 45, 30, 0.06);
+    --shadow-pop: 0 8px 32px rgba(60, 45, 30, 0.10), 0 24px 64px rgba(60, 45, 30, 0.08);
+
+    --r-sm: 6px;
+    --r-md: 10px;
+    --r-lg: 14px;
+    --r-xl: 20px;
+
+    --font-display: 'Fraunces', 'Noto Serif JP', Georgia, serif;
+    --font-sans: 'Inter', 'Noto Sans JP', system-ui, -apple-system, sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', monospace;
+  }
+
+  [data-theme="dark"] {
+    --bg-app: #1a1612;
+    --bg-surface: #221d18;
+    --bg-elev: #2a2520;
+    --bg-sunken: #15110d;
+    --bg-hover: rgba(232, 213, 190, 0.05);
+    --bg-active: rgba(232, 213, 190, 0.10);
+
+    --ink-1: #f0e8dc;
+    --ink-2: #c4b8a6;
+    --ink-3: #8a7c6c;
+    --ink-4: #5b4f43;
+
+    --accent: #d4a373;
+    --accent-hover: #e8b88a;
+    --accent-soft: #4a3424;
+    --accent-tint: rgba(212, 163, 115, 0.12);
+    --accent-ink: #f0d6b4;
+
+    --line-1: rgba(232, 213, 190, 0.07);
+    --line-2: rgba(232, 213, 190, 0.12);
+    --line-3: rgba(232, 213, 190, 0.20);
+
+    --st-todo: #a89888;     --st-todo-bg: rgba(168, 152, 136, 0.14);
+    --st-doing: #d4a373;    --st-doing-bg: rgba(212, 163, 115, 0.16);
+    --st-review: #c4b27a;   --st-review-bg: rgba(196, 178, 122, 0.14);
+    --st-done: #95ad7a;     --st-done-bg: rgba(149, 173, 122, 0.14);
+    --st-blocked: #d48472;  --st-blocked-bg: rgba(212, 132, 114, 0.14);
+
+    --shadow-1: 0 1px 2px rgba(0, 0, 0, 0.30);
+    --shadow-2: 0 1px 3px rgba(0, 0, 0, 0.35), 0 4px 12px rgba(0, 0, 0, 0.25);
+    --shadow-3: 0 4px 16px rgba(0, 0, 0, 0.40), 0 12px 32px rgba(0, 0, 0, 0.30);
+    --shadow-pop: 0 8px 32px rgba(0, 0, 0, 0.50), 0 24px 64px rgba(0, 0, 0, 0.40);
+  }
+
+  /* Accent variants */
+  [data-accent="sage"]   { --accent: #5b6f4a; --accent-hover: #4a5b3c; --accent-soft: #cdd6bf; --accent-tint: rgba(91, 111, 74, 0.10);  --accent-ink: #36462a; }
+  [data-accent="indigo"] { --accent: #3b5bdb; --accent-hover: #2f49b3; --accent-soft: #c5cef2; --accent-tint: rgba(59, 91, 219, 0.10); --accent-ink: #253a8a; }
+  [data-accent="clay"]   { --accent: #9c4a3a; --accent-hover: #843c2f; --accent-soft: #e2c4bd; --accent-tint: rgba(156, 74, 58, 0.10); --accent-ink: #5e2c23; }
+  [data-theme="dark"][data-accent="sage"]   { --accent: #a3b885; --accent-hover: #b9cc9e; --accent-soft: #2c3624; --accent-tint: rgba(163, 184, 133, 0.12); --accent-ink: #d8e2c2; }
+  [data-theme="dark"][data-accent="indigo"] { --accent: #7d92ec; --accent-hover: #9aabf2; --accent-soft: #2a3060; --accent-tint: rgba(125, 146, 236, 0.12); --accent-ink: #c5cef2; }
+  [data-theme="dark"][data-accent="clay"]   { --accent: #d48472; --accent-hover: #e8a08e; --accent-soft: #4a2820; --accent-tint: rgba(212, 132, 114, 0.12); --accent-ink: #f0c8be; }
+
+  /* ============================================================
+     Base
+     ============================================================ */
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: var(--font-sans);
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--ink-1);
+    background: var(--bg-app);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: "ss01", "cv11";
+    overflow-x: hidden;
+  }
+
+  /* Paper grain — subtle warmth everywhere */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+      radial-gradient(rgba(120, 90, 60, 0.025) 1px, transparent 1px),
+      radial-gradient(rgba(120, 90, 60, 0.018) 1px, transparent 1px);
+    background-size: 3px 3px, 7px 7px;
+    background-position: 0 0, 1px 1px;
+    mix-blend-mode: multiply;
+    z-index: 1;
+  }
+  [data-theme="dark"] body::before {
+    background-image:
+      radial-gradient(rgba(232, 213, 190, 0.020) 1px, transparent 1px),
+      radial-gradient(rgba(232, 213, 190, 0.015) 1px, transparent 1px);
+    mix-blend-mode: screen;
+  }
+
+  /* ============================================================
+     Lang toggle visibility — content with [lang] attr
+     ============================================================ */
+  [data-lang="ja"] .lang-en { display: none; }
+  [data-lang="en"] .lang-ja { display: none; }
+
+  /* ============================================================
+     Layout
+     ============================================================ */
+  .page { position: relative; z-index: 2; }
+  .container {
+    width: 100%;
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  /* ============================================================
+     Top nav
+     ============================================================ */
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(14px) saturate(140%);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+    background: color-mix(in oklab, var(--bg-app) 78%, transparent);
+    border-bottom: 1px solid var(--line-1);
+  }
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    height: 64px;
+  }
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: inherit;
+  }
+  .brand-mark {
+    width: 28px; height: 28px;
+    border-radius: 7px;
+    background: var(--accent);
+    color: #fff8ee;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 16px;
+    font-variation-settings: "opsz" 60;
+    box-shadow: var(--shadow-1), inset 0 1px 0 rgba(255,255,255,0.18);
+  }
+  .brand-name {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 18px;
+    letter-spacing: -0.01em;
+    font-variation-settings: "opsz" 36;
+  }
+  .ver-chip {
+    margin-left: 4px;
+    padding: 2px 8px;
+    border-radius: 999px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--ink-2);
+    background: var(--bg-sunken);
+    border: 1px solid var(--line-1);
+  }
+  .nav-spacer { flex: 1; }
+  .nav-links {
+    display: flex;
+    gap: 4px;
+  }
+  .nav-link {
+    padding: 6px 12px;
+    border-radius: var(--r-sm);
+    font-size: 13.5px;
+    color: var(--ink-2);
+    text-decoration: none;
+    transition: color 0.15s, background 0.15s;
+  }
+  .nav-link:hover { color: var(--ink-1); background: var(--bg-hover); }
+
+  .lang-toggle {
+    display: inline-flex;
+    background: var(--bg-sunken);
+    border: 1px solid var(--line-1);
+    border-radius: 999px;
+    padding: 2px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+  }
+  .lang-toggle button {
+    appearance: none;
+    border: 0;
+    background: transparent;
+    color: var(--ink-3);
+    padding: 4px 10px;
+    border-radius: 999px;
+    cursor: pointer;
+    font: inherit;
+    letter-spacing: 0.04em;
+  }
+  .lang-toggle button.is-active {
+    background: var(--bg-elev);
+    color: var(--ink-1);
+    box-shadow: var(--shadow-1);
+  }
+
+  .icon-btn {
+    width: 34px; height: 34px;
+    border-radius: var(--r-md);
+    border: 1px solid var(--line-1);
+    background: var(--bg-elev);
+    color: var(--ink-2);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s ease;
+  }
+  .icon-btn:hover { color: var(--ink-1); border-color: var(--line-2); background: var(--bg-hover); }
+
+  /* ============================================================
+     Buttons
+     ============================================================ */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    height: 44px;
+    padding: 0 22px;
+    border-radius: var(--r-md);
+    border: 1px solid var(--line-2);
+    background: var(--bg-elev);
+    color: var(--ink-1);
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.18s ease;
+  }
+  .btn:hover { border-color: var(--line-3); background: var(--bg-hover); transform: translateY(-1px); }
+  .btn-primary {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff8ee;
+    box-shadow: var(--shadow-2), inset 0 1px 0 rgba(255,255,255,0.18);
+  }
+  .btn-primary:hover { background: var(--accent-hover); border-color: var(--accent-hover); }
+  .btn-lg { height: 56px; padding: 0 28px; font-size: 15px; border-radius: 12px; }
+  .btn-sm { height: 32px; padding: 0 14px; font-size: 12.5px; }
+  .btn .chev { transition: transform 0.2s; }
+  .btn:hover .chev { transform: translateX(2px); }
+
+  /* ============================================================
+     HERO
+     ============================================================ */
+  .hero {
+    padding: 100px 0 80px;
+    position: relative;
+  }
+  .hero-grid {
+    display: block;
+    max-width: 880px;
+  }
+  .hero-copy { max-width: 760px; }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    margin-bottom: 24px;
+  }
+  .eyebrow::before {
+    content: "";
+    width: 28px; height: 1px;
+    background: var(--accent);
+  }
+
+  h1.hero-title {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(48px, 5.6vw, 76px);
+    line-height: 1.02;
+    letter-spacing: -0.025em;
+    margin: 0 0 28px;
+    font-variation-settings: "opsz" 120, "SOFT" 50;
+    color: var(--ink-1);
+    text-wrap: balance;
+  }
+  h1.hero-title em {
+    font-style: italic;
+    color: var(--accent);
+    font-variation-settings: "opsz" 144, "SOFT" 100;
+  }
+  h1.hero-title .stroke {
+    position: relative;
+    display: inline-block;
+  }
+  h1.hero-title .stroke::after {
+    content: "";
+    position: absolute;
+    left: -2%; right: -2%;
+    bottom: 0.06em;
+    height: 0.18em;
+    background: var(--accent-soft);
+    z-index: -1;
+    border-radius: 999px;
+    transform: skewX(-3deg);
+  }
+
+  .hero-sub {
+    font-size: 17px;
+    line-height: 1.65;
+    color: var(--ink-2);
+    max-width: 460px;
+    margin: 0 0 36px;
+    text-wrap: pretty;
+  }
+  :root[data-lang="ja"] .hero-sub { font-size: 16px; line-height: 1.85; }
+
+  .hero-cta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+  }
+  .hero-meta {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    font-size: 12.5px;
+    color: var(--ink-3);
+    font-family: var(--font-mono);
+  }
+  .hero-meta .dot {
+    width: 3px; height: 3px;
+    background: var(--ink-4);
+    border-radius: 50%;
+  }
+  .hero-meta .apple-mark {
+    color: var(--ink-2);
+    font-weight: 500;
+  }
+
+  /* DMG download size chip on CTA */
+  .btn-primary .size {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    padding: 2px 7px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.18);
+    color: rgba(255, 248, 238, 0.92);
+    margin-left: 6px;
+  }
+
+  /* ============================================================
+     Hero video slot
+     ============================================================ */
+  .hero-video {
+    position: relative;
+    aspect-ratio: 16 / 10;
+    background: linear-gradient(135deg, var(--bg-surface) 0%, var(--bg-sunken) 100%);
+    border: 1px solid var(--line-2);
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: var(--shadow-pop);
+  }
+  .hero-video::after {
+    /* Subtle warm glow under the frame */
+    content: "";
+    position: absolute;
+    left: 6%; right: 6%; bottom: -22px;
+    height: 30px;
+    background: radial-gradient(ellipse at center, rgba(60,45,30,0.20), transparent 70%);
+    filter: blur(10px);
+    z-index: -1;
+  }
+  .hero-video video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    background: var(--bg-sunken);
+  }
+  .hero-video .placeholder {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    color: var(--ink-3);
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background:
+      linear-gradient(135deg, var(--bg-surface) 0%, var(--bg-sunken) 100%);
+  }
+  .hero-video .placeholder .play {
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #fff8ee;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow-2);
+  }
+  .app-mock {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    background: var(--bg-surface);
+    border: 1px solid var(--line-2);
+    border-radius: 14px;
+    box-shadow: var(--shadow-pop);
+    overflow: hidden;
+    transform: perspective(1800px) rotateY(-6deg) rotateX(3deg) translateZ(0);
+    transform-origin: center center;
+  }
+  .app-mock::after {
+    /* Subtle glow under */
+    content: "";
+    position: absolute;
+    left: 4%; right: 4%; bottom: -22px;
+    height: 30px;
+    background: radial-gradient(ellipse at center, rgba(60,45,30,0.20), transparent 70%);
+    filter: blur(10px);
+    z-index: -1;
+  }
+
+  .mock-tb {
+    height: 32px;
+    display: flex;
+    align-items: center;
+    padding: 0 12px;
+    gap: 10px;
+    border-bottom: 1px solid var(--line-1);
+    background: var(--bg-surface);
+  }
+  .mock-tb .dots { display: flex; gap: 6px; }
+  .mock-tb .dots span {
+    width: 11px; height: 11px;
+    border-radius: 50%;
+    background: var(--line-3);
+  }
+  .mock-tb .dots span:nth-child(1) { background: #e87060; }
+  .mock-tb .dots span:nth-child(2) { background: #e8b860; }
+  .mock-tb .dots span:nth-child(3) { background: #5b9c4a; }
+  .mock-tb .title {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 12px;
+    color: var(--ink-2);
+    flex: 1;
+    text-align: center;
+    letter-spacing: 0.02em;
+  }
+  .mock-tb .title .pip { color: var(--ink-3); font-family: var(--font-mono); font-size: 10.5px; margin-left: 6px; }
+
+  .mock-body {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    height: calc(100% - 32px);
+  }
+  .mock-side {
+    background: var(--bg-surface);
+    border-right: 1px solid var(--line-1);
+    padding: 12px 8px;
+    font-size: 11px;
+    overflow: hidden;
+  }
+  .mock-side .sec {
+    font-size: 9.5px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    padding: 10px 8px 6px;
+  }
+  .mock-side .s-item {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 4px 8px;
+    border-radius: 5px;
+    color: var(--ink-2);
+    margin-bottom: 1px;
+  }
+  .mock-side .s-item.active { background: var(--bg-active); color: var(--ink-1); font-weight: 500; }
+  .mock-side .s-item .ico {
+    width: 11px; height: 11px;
+    border-radius: 2px;
+    background: currentColor;
+    opacity: 0.45;
+    flex-shrink: 0;
+  }
+  .mock-side .s-item.active .ico { background: var(--accent); opacity: 1; }
+  .mock-side .s-item .count {
+    margin-left: auto;
+    font-family: var(--font-mono);
+    font-size: 9.5px;
+    color: var(--ink-3);
+  }
+
+  .mock-main { background: var(--bg-app); padding: 14px; overflow: hidden; }
+  .mock-board {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    height: 100%;
+  }
+  .mock-col-h {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    margin-bottom: 8px;
+  }
+  .mock-col-h .count {
+    font-family: var(--font-mono);
+    color: var(--ink-3);
+    background: var(--bg-sunken);
+    border-radius: 999px;
+    padding: 1px 6px;
+    font-size: 9.5px;
+  }
+  .mock-card {
+    background: var(--bg-elev);
+    border: 1px solid var(--line-1);
+    border-radius: 7px;
+    padding: 8px 9px;
+    margin-bottom: 6px;
+    box-shadow: var(--shadow-1);
+  }
+  .mock-card .ttl {
+    font-size: 11px;
+    line-height: 1.35;
+    color: var(--ink-1);
+    margin-bottom: 6px;
+    font-weight: 500;
+  }
+  .mock-card .meta {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 9.5px;
+    color: var(--ink-3);
+    font-family: var(--font-mono);
+  }
+  .mock-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    padding: 1px 6px;
+    border-radius: 999px;
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+  }
+  .p-doing { background: var(--st-doing-bg); color: var(--st-doing); }
+  .p-review { background: var(--st-review-bg); color: var(--st-review); }
+  .p-done { background: var(--st-done-bg); color: var(--st-done); }
+  .p-todo { background: var(--st-todo-bg); color: var(--st-todo); }
+  .p-blocked { background: var(--st-blocked-bg); color: var(--st-blocked); }
+  .mock-tag {
+    background: var(--bg-sunken);
+    border: 1px solid var(--line-1);
+    padding: 0 5px;
+    border-radius: 3px;
+    font-size: 9px;
+    color: var(--ink-2);
+    font-family: var(--font-sans);
+  }
+
+  /* Marginalia annotation pinned next to the mock */
+  .annotation {
+    position: absolute;
+    top: -4px;
+    right: -200px;
+    width: 200px;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 500;
+    font-size: 14px;
+    color: var(--ink-3);
+    line-height: 1.4;
+    transform: rotate(-3deg);
+    pointer-events: none;
+  }
+  .annotation::before {
+    content: "";
+    position: absolute;
+    left: -56px;
+    top: 14px;
+    width: 60px; height: 28px;
+    border-left: 1.5px solid var(--accent);
+    border-bottom: 1.5px solid var(--accent);
+    border-bottom-left-radius: 28px;
+    opacity: 0.6;
+  }
+  @media (max-width: 1280px) { .annotation { display: none; } }
+
+  /* ============================================================
+     Section scaffolding
+     ============================================================ */
+  section { padding: 96px 0; position: relative; }
+  .section-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-eyebrow::before {
+    content: "";
+    width: 18px; height: 1px;
+    background: var(--accent);
+  }
+  .section-title {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(32px, 3.4vw, 44px);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin: 0 0 16px;
+    font-variation-settings: "opsz" 96;
+    max-width: 720px;
+    text-wrap: balance;
+  }
+  .section-title em { font-style: italic; color: var(--accent); font-variation-settings: "opsz" 144;}
+  .section-lede {
+    font-size: 16px;
+    color: var(--ink-2);
+    max-width: 620px;
+    line-height: 1.65;
+    margin: 0 0 56px;
+    text-wrap: pretty;
+  }
+
+  /* ============================================================
+     Manifesto strip — "Local-first"
+     ============================================================ */
+  .manifesto {
+    background: var(--bg-surface);
+    border-top: 1px solid var(--line-1);
+    border-bottom: 1px solid var(--line-1);
+    padding: 72px 0;
+  }
+  .manifesto-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    gap: 64px;
+    align-items: start;
+  }
+  .manifesto-tag {
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    margin-bottom: 14px;
+  }
+  .manifesto h2 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(28px, 2.8vw, 38px);
+    line-height: 1.15;
+    letter-spacing: -0.018em;
+    margin: 0;
+    font-variation-settings: "opsz" 96;
+  }
+  .manifesto h2 em { font-style: italic; color: var(--accent); font-variation-settings: "opsz" 144;}
+  .principles {
+    display: grid;
+    gap: 0;
+  }
+  .principle {
+    display: grid;
+    grid-template-columns: 36px 1fr;
+    gap: 18px;
+    padding: 22px 0;
+    border-bottom: 1px solid var(--line-1);
+  }
+  .principle:last-child { border-bottom: none; }
+  .principle .num {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--ink-3);
+    letter-spacing: 0.04em;
+    padding-top: 2px;
+  }
+  .principle h3 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 19px;
+    margin: 0 0 6px;
+    color: var(--ink-1);
+    font-variation-settings: "opsz" 36;
+  }
+  .principle p {
+    margin: 0;
+    color: var(--ink-2);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  .principle code {
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    color: var(--accent-ink);
+    background: var(--accent-tint);
+    padding: 1px 6px;
+    border-radius: 4px;
+  }
+
+  /* ============================================================
+     Features grid
+     ============================================================ */
+  .features {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--line-1);
+    border: 1px solid var(--line-1);
+    border-radius: var(--r-lg);
+    overflow: hidden;
+  }
+  .feature {
+    background: var(--bg-surface);
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    min-height: 240px;
+    transition: background 0.2s;
+  }
+  .feature:hover { background: var(--bg-elev); }
+  .feature .f-ico {
+    width: 36px; height: 36px;
+    border-radius: 9px;
+    background: var(--accent-soft);
+    color: var(--accent-ink);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .feature h3 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 20px;
+    margin: 0;
+    color: var(--ink-1);
+    letter-spacing: -0.01em;
+    font-variation-settings: "opsz" 36;
+  }
+  .feature p {
+    margin: 0;
+    color: var(--ink-2);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  .feature code, .feature .kbd {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--accent-ink);
+    background: var(--accent-tint);
+    padding: 1px 6px;
+    border-radius: 4px;
+  }
+  .feature .f-foot {
+    margin-top: auto;
+    padding-top: 14px;
+    border-top: 1px dashed var(--line-1);
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    color: var(--ink-3);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .feature .f-foot .swatch {
+    width: 9px; height: 9px;
+    border-radius: 2px;
+    background: var(--accent);
+  }
+
+  /* ============================================================
+     Trust strip — signing / verification
+     ============================================================ */
+  .trust {
+    background: var(--bg-surface);
+    border: 1px solid var(--line-1);
+    border-radius: var(--r-xl);
+    padding: 48px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+    gap: 56px;
+    align-items: center;
+    box-shadow: var(--shadow-1);
+  }
+  .trust h2 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(26px, 2.4vw, 34px);
+    line-height: 1.15;
+    letter-spacing: -0.018em;
+    margin: 0 0 14px;
+    font-variation-settings: "opsz" 96;
+  }
+  .trust h2 em { font-style: italic; color: var(--accent); font-variation-settings: "opsz" 144;}
+  .trust p {
+    margin: 0;
+    color: var(--ink-2);
+    font-size: 15px;
+    line-height: 1.6;
+  }
+  .trust-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 14px;
+  }
+  .trust-list li {
+    display: grid;
+    grid-template-columns: 22px 1fr auto;
+    align-items: start;
+    gap: 14px;
+    padding: 14px 18px;
+    background: var(--bg-elev);
+    border: 1px solid var(--line-1);
+    border-radius: var(--r-md);
+  }
+  .trust-list .tick {
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #fff8ee;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1px;
+  }
+  .trust-list .lbl {
+    font-weight: 500;
+    color: var(--ink-1);
+    font-size: 14px;
+    margin-bottom: 2px;
+  }
+  .trust-list .sub {
+    font-size: 12.5px;
+    color: var(--ink-3);
+    font-family: var(--font-mono);
+    line-height: 1.5;
+  }
+  .trust-list .hash {
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    color: var(--ink-3);
+    align-self: center;
+    padding: 4px 10px;
+    background: var(--bg-sunken);
+    border-radius: 999px;
+    border: 1px solid var(--line-1);
+  }
+
+  /* ============================================================
+     Specs / Release box
+     ============================================================ */
+  .spec-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+  .spec-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--line-1);
+    border-radius: var(--r-lg);
+    padding: 36px;
+  }
+  .spec-card h3 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 22px;
+    margin: 0 0 22px;
+    letter-spacing: -0.01em;
+    font-variation-settings: "opsz" 48;
+  }
+  .spec-row {
+    display: grid;
+    grid-template-columns: 130px 1fr;
+    padding: 12px 0;
+    border-bottom: 1px dashed var(--line-1);
+    font-size: 14px;
+  }
+  .spec-row:last-child { border-bottom: 0; }
+  .spec-row .k {
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    align-self: center;
+  }
+  .spec-row .v { color: var(--ink-1); }
+  .spec-row .v .sub { color: var(--ink-3); font-size: 12.5px; margin-top: 2px; }
+
+  /* Release notes mini list */
+  .notes-list { display: grid; gap: 10px; }
+  .note-item {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    gap: 16px;
+    padding: 10px 0;
+    border-bottom: 1px dashed var(--line-1);
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  .note-item:last-child { border-bottom: 0; }
+  .note-item .tag {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--accent-ink);
+    background: var(--accent-tint);
+    padding: 2px 8px;
+    border-radius: 4px;
+    align-self: start;
+    text-align: center;
+    letter-spacing: 0.04em;
+  }
+  .note-item p { margin: 0; color: var(--ink-2); }
+
+  /* ============================================================
+     Footer CTA — big closing
+     ============================================================ */
+  .closer {
+    padding: 120px 0 80px;
+    text-align: center;
+    position: relative;
+  }
+  .closer h2 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(40px, 5vw, 64px);
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    margin: 0 0 24px;
+    font-variation-settings: "opsz" 144, "SOFT" 50;
+    text-wrap: balance;
+  }
+  .closer h2 em { font-style: italic; color: var(--accent); font-variation-settings: "opsz" 144;}
+  .closer p {
+    max-width: 540px;
+    margin: 0 auto 40px;
+    color: var(--ink-2);
+    font-size: 16px;
+    line-height: 1.65;
+    text-wrap: pretty;
+  }
+
+  /* ============================================================
+     Footer
+     ============================================================ */
+  footer {
+    border-top: 1px solid var(--line-1);
+    padding: 40px 0 60px;
+    color: var(--ink-3);
+    font-size: 13px;
+  }
+  .foot-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .foot-links { display: flex; gap: 18px; }
+  .foot-links a { color: var(--ink-2); text-decoration: none; }
+  .foot-links a:hover { color: var(--ink-1); }
+  .foot-mono { font-family: var(--font-mono); font-size: 11.5px; color: var(--ink-3); }
+
+  /* ============================================================
+     Responsive
+     ============================================================ */
+  @media (max-width: 980px) {
+    .hero-grid, .manifesto-grid, .trust, .spec-grid {
+      grid-template-columns: 1fr;
+      gap: 48px;
+    }
+    .features { grid-template-columns: 1fr; }
+    .app-mock { transform: none; }
+    .hero { padding: 72px 0 64px; }
+    section { padding: 72px 0; }
+    .container { padding: 0 22px; }
+  }
+  @media (max-width: 640px) {
+    .nav-links { display: none; }
+    h1.hero-title { font-size: 44px; }
+  }
+
+  /* Selection */
+  ::selection { background: var(--accent-tint); color: var(--ink-1); }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+
+  /* Smooth scroll */
+  html { scroll-behavior: smooth; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ============================================================
+       NAV
+       ============================================================ -->
+  <nav class="nav">
+    <div class="container nav-inner">
+      <a class="brand" href="#top">
+        <span class="brand-mark">A</span>
+        <span class="brand-name">Atelie</span>
+      </a>
+      <div class="nav-spacer"></div>
+      <div class="nav-links">
+        <a class="nav-link" href="#demo"><span class="lang-ja">デモ</span><span class="lang-en">Demo</span></a>
+        <a class="nav-link" href="#features"><span class="lang-ja">機能</span><span class="lang-en">Features</span></a>
+        <a class="nav-link" href="#philosophy"><span class="lang-ja">設計思想</span><span class="lang-en">Philosophy</span></a>
+        <a class="nav-link" href="#specs"><span class="lang-ja">動作環境</span><span class="lang-en">Specs</span></a>
+      </div>
+      <div class="lang-toggle" role="tablist" aria-label="Language">
+        <button type="button" data-set-lang="ja">JA</button>
+        <button type="button" data-set-lang="en" class="is-active">EN</button>
+      </div>
+      <button class="icon-btn" id="themeToggle" aria-label="Toggle theme" title="Toggle theme">
+        <svg id="themeIcon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+      <a class="icon-btn" href="https://github.com/ryo-kame/atelie-releases" target="_blank" rel="noopener" aria-label="GitHub" title="GitHub">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58 0-.29-.01-1.04-.02-2.05-3.34.72-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.09-.75.08-.73.08-.73 1.21.08 1.84 1.24 1.84 1.24 1.07 1.83 2.81 1.3 3.5 1 .11-.78.42-1.3.76-1.6-2.66-.3-5.47-1.33-5.47-5.92 0-1.31.47-2.38 1.23-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.29-1.55 3.3-1.23 3.3-1.23.66 1.66.24 2.88.12 3.18.77.84 1.23 1.91 1.23 3.22 0 4.6-2.81 5.61-5.49 5.91.43.37.81 1.1.81 2.22 0 1.6-.01 2.89-.01 3.29 0 .32.22.7.83.58A12 12 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+      </a>
+    </div>
+  </nav>
+
+  <!-- ============================================================
+       HERO
+       ============================================================ -->
+  <header class="hero" id="top">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <div class="eyebrow">
+          <span class="lang-ja">macOS · ローカルファースト · シングルユーザー</span>
+          <span class="lang-en">For macOS · Local-first · Single-user</span>
+        </div>
+        <h1 class="hero-title">
+          <span class="lang-ja">
+            ノートと <em>タスク</em>。<br>
+            <span class="stroke">マークダウン</span>が真実の源。
+          </span>
+          <span class="lang-en">
+            Notes &amp; <em>tasks</em>.<br>
+            <span class="stroke">Markdown</span> is the source of truth.
+          </span>
+        </h1>
+        <p class="hero-sub">
+          <span class="lang-ja">
+            フリーランス開発者のための、シングルユーザー・オフライン専用のプロジェクト管理ツール。<code style="font-family:var(--font-mono); font-size:13px; color:var(--accent-ink); background:var(--accent-tint); padding:1px 6px; border-radius:4px;">~/Atelie/projects/</code> 配下の <code style="font-family:var(--font-mono); font-size:13px; color:var(--accent-ink); background:var(--accent-tint); padding:1px 6px; border-radius:4px;">.md</code> ファイルがデータ。SQLite は破棄可能なキャッシュにすぎません。
+          </span>
+          <span class="lang-en">
+            A single-user, offline-only project notebook for freelance developers. Plain Markdown files under your home folder are the data — SQLite is just a disposable cache.
+          </span>
+        </p>
+        <div class="hero-cta">
+          <a class="btn btn-primary btn-lg" href="https://github.com/ryo-kame/atelie-releases/releases/latest" target="_blank" rel="noopener">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.05 20.28c-.98.95-2.05.86-3.08.43-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.43C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg>
+            <span class="lang-ja">macOS用ダウンロード</span><span class="lang-en">Download for macOS</span>
+          </a>
+          <a class="btn btn-lg" href="https://github.com/ryo-kame/atelie-releases/releases" target="_blank" rel="noopener">
+            <span class="lang-ja">すべてのリリース</span><span class="lang-en">All releases</span>
+            <span class="chev" aria-hidden="true">→</span>
+          </a>
+        </div>
+        <div class="hero-meta">
+          <span class="apple-mark">Apple Silicon</span>
+          <span class="dot"></span>
+          <span><span class="lang-ja">Tauri 製 · 軽いネイティブアプリ</span><span class="lang-en">Built with Tauri · a tiny native app</span></span>
+          <span class="dot"></span>
+          <span><span class="lang-ja">ローカルのみ · 通信なし</span><span class="lang-en">Runs locally · no network</span></span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============================================================
+       DEMO VIDEO
+       ============================================================ -->
+  <section id="demo" style="padding-top: 0;">
+    <div class="container">
+      <div class="section-eyebrow"><span class="lang-ja">デモ</span><span class="lang-en">See it in motion</span></div>
+      <h2 class="section-title">
+        <span class="lang-ja">触れば、<em>一目で</em>わかる。</span>
+        <span class="lang-en">A <em>minute</em> with Atelie.</span>
+      </h2>
+      <p class="section-lede">
+        <span class="lang-ja">ノートを書き、カンバンでカードを動かし、横断検索する——実際の操作をそのまま。</span>
+        <span class="lang-en">Write a note, drag a card across the board, search across everything — the real app, no edits.</span>
+      </p>
+      <div class="hero-video">
+        <video controls playsinline preload="metadata" poster="assets/demo-poster.jpg">
+          <source src="assets/demo.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       MANIFESTO / PHILOSOPHY
+       ============================================================ -->
+  <div class="manifesto" id="philosophy">
+    <div class="container manifesto-grid">
+      <div>
+        <div class="manifesto-tag"><span class="lang-ja">設計思想</span><span class="lang-en">Philosophy</span></div>
+        <h2>
+          <span class="lang-ja">クラウドではなく、<em>あなたのディスク</em>に。</span>
+          <span class="lang-en">On <em>your disk</em>, not the cloud.</span>
+        </h2>
+        <p style="margin-top: 20px; color: var(--ink-2); font-size: 15px; line-height: 1.7; max-width: 380px;">
+          <span class="lang-ja">Atelie はあなたのノートを他人のサーバーに預けません。ファイルはあなたのもの。同期はあなたが選んだ git の責任です。</span>
+          <span class="lang-en">Atelie never sends your notes to someone else's server. Files are yours. Sync is your <code style="font-family:var(--font-mono); font-size:13px; color:var(--accent-ink); background:var(--accent-tint); padding:1px 5px; border-radius:4px;">git</code>'s responsibility — not the app's.</span>
+        </p>
+      </div>
+      <div class="principles">
+        <div class="principle">
+          <div class="num">01</div>
+          <div>
+            <h3><span class="lang-ja">マークダウンが真実の源</span><span class="lang-en">Markdown is the source of truth</span></h3>
+            <p>
+              <span class="lang-ja"><code>~/Atelie/projects/{project-id}/{slug}.md</code> がデータそのもの。アプリを消してもノートは残ります。</span>
+              <span class="lang-en">Every note lives as a plain <code>.md</code> file under your workspace. Uninstall Atelie tomorrow — your notes are still right there.</span>
+            </p>
+          </div>
+        </div>
+        <div class="principle">
+          <div class="num">02</div>
+          <div>
+            <h3><span class="lang-ja">オフライン専用・シングルユーザー</span><span class="lang-en">Offline-only, single-user</span></h3>
+            <p>
+              <span class="lang-ja">外部APIなし、認証なし、テレメトリなし。例外はアップデートチェックだけで、これも opt-out 可能。</span>
+              <span class="lang-en">No external APIs, no auth, no telemetry. The one exception is the update check on launch — and you can opt out.</span>
+            </p>
+          </div>
+        </div>
+        <div class="principle">
+          <div class="num">03</div>
+          <div>
+            <h3><span class="lang-ja">同期はあなたの責任</span><span class="lang-en">Sync is your responsibility</span></h3>
+            <p>
+              <span class="lang-ja">アプリは <code>git</code> を呼びません。ワークスペースで <code>git init</code> するだけで、好みのリモートと同期できます。</span>
+              <span class="lang-en">The app doesn't call <code>git</code>. Run <code>git init</code> in your workspace once, then sync to whichever remote you trust.</span>
+            </p>
+          </div>
+        </div>
+        <div class="principle">
+          <div class="num">04</div>
+          <div>
+            <h3><span class="lang-ja">外部エディタと共存</span><span class="lang-en">Lives next to your editor</span></h3>
+            <p>
+              <span class="lang-ja">VS Code でも Neovim でも、好きなエディタで開いて編集できます。ファイル監視が自動で取り込みます。</span>
+              <span class="lang-en">Open the same files in VS Code or Neovim. The file watcher picks up your edits automatically.</span>
+            </p>
+          </div>
+        </div>
+        <div class="principle">
+          <div class="num">05</div>
+          <div>
+            <h3><span class="lang-ja">Tauri 製、軽快なネイティブ</span><span class="lang-en">Built with Tauri, light and native</span></h3>
+            <p>
+              <span class="lang-ja">Rust と WebView の組み合わせで、Electron のような重さはありません。起動も操作も、Mac らしく素早く。</span>
+              <span class="lang-en">Rust core, system WebView, no Electron bulk. Launches fast, stays responsive — the way a Mac app should feel.</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       FEATURES
+       ============================================================ -->
+  <section id="features">
+    <div class="container">
+      <div class="section-eyebrow"><span class="lang-ja">主要機能</span><span class="lang-en">Features</span></div>
+      <h2 class="section-title">
+        <span class="lang-ja">小さく、<em>静かに</em>、しっかり仕事をする。</span>
+        <span class="lang-en">Small, <em>quiet</em>, and gets out of the way.</span>
+      </h2>
+      <p class="section-lede">
+        <span class="lang-ja">過剰な機能はありません。フリーランス開発者が毎日のタスクとノートを管理するために必要なものだけを、きちんと作りました。</span>
+        <span class="lang-en">No feature creep. Just what a freelance developer actually needs to track tasks and notes day to day — built carefully.</span>
+      </p>
+
+      <div class="features">
+        <div class="feature">
+          <div class="f-ico">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="15" y2="17"/></svg>
+          </div>
+          <h3><span class="lang-ja">マークダウンエディタ</span><span class="lang-en">Markdown editor</span></h3>
+          <p>
+            <span class="lang-ja">Tiptap 3 + frontmatter プロパティパネル。本文も YAML も同じファイルで一貫管理。</span>
+            <span class="lang-en">Tiptap-based editor with a YAML frontmatter property panel. One file, body and metadata together.</span>
+          </p>
+          <div class="f-foot"><span class="swatch"></span>Tiptap 3 · GFM</div>
+        </div>
+
+        <div class="feature">
+          <div class="f-ico">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07L11.7 5.78"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07L12.3 18.22"/></svg>
+          </div>
+          <h3><span class="lang-ja">Wikilink + バックリンク</span><span class="lang-en">Wikilinks + backlinks</span></h3>
+          <p>
+            <span class="lang-ja"><code>[[note-id]]</code> で双方向リンク。<code>id</code> が安定参照なので、ファイル名を変えてもリンクは切れません。</span>
+            <span class="lang-en"><code>[[note-id]]</code> creates a two-way link. Stable IDs mean renaming the file never breaks anything.</span>
+          </p>
+          <div class="f-foot"><span class="swatch"></span><code style="background:transparent;padding:0;color:inherit;">[[t-001]]</code></div>
+        </div>
+
+        <div class="feature">
+          <div class="f-ico">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="6" height="18" rx="1"/><rect x="11" y="3" width="6" height="11" rx="1"/><rect x="19" y="3" width="2" height="7" rx="1"/></svg>
+          </div>
+          <h3><span class="lang-ja">3 つのビュー、1 つのソース</span><span class="lang-en">Three views, one source</span></h3>
+          <p>
+            <span class="lang-ja">Kanban でドラッグ、Table でソート、Calendar で期限俯瞰。ドロップすると frontmatter に書き戻ります。</span>
+            <span class="lang-en">Drag in Kanban, sort in Table, scan deadlines in Calendar. Drops write back to frontmatter.</span>
+          </p>
+          <div class="f-foot"><span class="swatch"></span>Kanban · Table · Calendar</div>
+        </div>
+
+        <div class="feature">
+          <div class="f-ico">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          </div>
+          <h3><span class="lang-ja">全文検索（日本語対応）</span><span class="lang-en">Full-text search (Japanese)</span></h3>
+          <p>
+            <span class="lang-ja">SQLite FTS5 trigram tokenizer で日本語もスムーズに検索。形態素解析の罠なし。</span>
+            <span class="lang-en">SQLite FTS5 with a trigram tokenizer — Japanese works smoothly, no morphological analyzer pitfalls.</span>
+          </p>
+          <div class="f-foot"><span class="swatch"></span>FTS5 · trigram</div>
+        </div>
+
+        <div class="feature">
+          <div class="f-ico">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.6 1.65 1.65 0 0 0 10 3.09V3a2 2 0 0 1 4 0v.09A1.65 1.65 0 0 0 15 4.6a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9c.18.43.59.74 1.06.74H21a2 2 0 0 1 0 4h-.09A1.65 1.65 0 0 0 19.4 15z"/></svg>
+          </div>
+          <h3><span class="lang-ja">プロジェクト別ステータス</span><span class="lang-en">Per-project statuses</span></h3>
+          <p>
+            <span class="lang-ja">デフォルトは <code>todo / doing / review / blocked / done</code>。プロジェクトごとに <code>.atelie/config.yml</code> でカスタマイズ。</span>
+            <span class="lang-en">Defaults to <code>todo / doing / review / blocked / done</code>. Customize per project via <code>.atelie/config.yml</code>.</span>
+          </p>
+          <div class="f-foot"><span class="swatch"></span>statuses.yml</div>
+        </div>
+
+        <div class="feature">
+          <div class="f-ico">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+          </div>
+          <h3><span class="lang-ja">外部編集の自動取り込み</span><span class="lang-en">External-edit watcher</span></h3>
+          <p>
+            <span class="lang-ja">VS Code や Neovim で <code>.md</code> を直接編集しても、Atelie がファイル監視で即座に反映します。</span>
+            <span class="lang-en">Edit the <code>.md</code> in VS Code or Neovim — Atelie's file watcher picks it up instantly.</span>
+          </p>
+          <div class="f-foot"><span class="swatch"></span>notify-rs · debounced</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SPECS + RELEASE NOTES
+       ============================================================ -->
+  <section id="specs">
+    <div class="container">
+      <div class="section-eyebrow"><span class="lang-ja">動作環境とリリース</span><span class="lang-en">Specs &amp; Release notes</span></div>
+      <h2 class="section-title">
+        <span class="lang-ja">必要なものは、<em>たった一つ</em>の DMG。</span>
+        <span class="lang-en">All you need is <em>one DMG</em>.</span>
+      </h2>
+
+      <div class="spec-grid">
+        <div class="spec-card">
+          <h3><span class="lang-ja">動作環境</span><span class="lang-en">Requirements</span></h3>
+          <div class="spec-row">
+            <div class="k">OS</div>
+            <div class="v">macOS</div>
+          </div>
+          <div class="spec-row">
+            <div class="k">CPU</div>
+            <div class="v">
+              Apple Silicon (arm64)
+              <div class="sub"><span class="lang-ja">Tauri 製のネイティブアプリ</span><span class="lang-en">Built with Tauri — native binary</span></div>
+            </div>
+          </div>
+          <div class="spec-row">
+            <div class="k">Footprint</div>
+            <div class="v">
+              <span class="lang-ja">軽量</span><span class="lang-en">Lightweight</span>
+              <div class="sub"><span class="lang-ja">Tauri 製なので Electron アプリよりずっと小さい</span><span class="lang-en">Tauri-based — much smaller than Electron apps</span></div>
+            </div>
+          </div>
+          <div class="spec-row">
+            <div class="k">Workspace</div>
+            <div class="v"><code style="font-family:var(--font-mono);font-size:13px;color:var(--accent-ink);background:var(--accent-tint);padding:1px 6px;border-radius:4px;">~/Atelie</code> <span class="lang-ja">（変更可）</span><span class="lang-en">(configurable)</span></div>
+          </div>
+          <div class="spec-row">
+            <div class="k">License</div>
+            <div class="v"><span class="lang-ja">プロプライエタリ・無料配布</span><span class="lang-en">Proprietary · free</span></div>
+          </div>
+        </div>
+
+        <div class="spec-card" style="display: flex; flex-direction: column; justify-content: space-between;">
+          <div>
+            <h3>
+              <span class="lang-ja">アップデート</span><span class="lang-en">Updates</span>
+            </h3>
+            <div style="display: flex; align-items: center; gap: 14px; margin: 8px 0 22px;">
+              <span style="width: 44px; height: 44px; border-radius: 12px; background: var(--accent-soft); color: var(--accent-ink); display: inline-flex; align-items: center; justify-content: center;">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+              </span>
+              <div style="font-family: var(--font-display); font-weight: 500; font-size: 26px; line-height: 1.15; letter-spacing: -0.018em; font-variation-settings: 'opsz' 48; color: var(--ink-1);">
+                <span class="lang-ja">起動時に静かに最新化</span>
+                <span class="lang-en">Quietly stays current</span>
+              </div>
+            </div>
+            <p style="margin: 0; color: var(--ink-2); font-size: 14.5px; line-height: 1.65; max-width: 380px;">
+              <span class="lang-ja">Atelie は起動時に GitHub Releases をチェックして、新しいバージョンがあれば再起動後に自動更新します。Settings から無効化することもできます。</span>
+              <span class="lang-en">Atelie checks GitHub Releases on launch and updates itself on next restart. You can disable this anytime in Settings.</span>
+            </p>
+          </div>
+          <a href="https://github.com/ryo-kame/atelie-releases/releases" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; gap: 10px; margin-top: 28px; padding: 14px 20px; border: 1px solid var(--line-2); background: var(--bg-elev); border-radius: var(--r-md); color: var(--ink-1); font-size: 13.5px; font-weight: 500; text-decoration: none; align-self: flex-start; transition: all 0.15s;" onmouseover="this.style.borderColor='var(--accent)'; this.style.color='var(--accent)';" onmouseout="this.style.borderColor='var(--line-2)'; this.style.color='var(--ink-1)';">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="15" y2="17"/></svg>
+            <span class="lang-ja">リリースと変更履歴を見る</span><span class="lang-en">View releases &amp; changelog</span>
+            <span aria-hidden="true" style="font-family: var(--font-mono); opacity: 0.6;">↗</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CLOSER
+       ============================================================ -->
+  <section class="closer">
+    <div class="container">
+      <h2>
+        <span class="lang-ja">あなたのノートを、<em>あなたのものに</em>。</span>
+        <span class="lang-en">Your notes, <em>made yours</em>.</span>
+      </h2>
+      <p>
+        <span class="lang-ja">DMG をマウントし、アプリケーションズにドラッグ、ダブルクリック。それだけです。</span>
+        <span class="lang-en">Mount the DMG, drag it to Applications, double-click. That's it.</span>
+      </p>
+      <a class="btn btn-primary btn-lg" href="https://github.com/ryo-kame/atelie-releases/releases/latest" target="_blank" rel="noopener">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.05 20.28c-.98.95-2.05.86-3.08.43-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.43C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg>
+        <span class="lang-ja">Atelie をダウンロード</span><span class="lang-en">Download Atelie</span>
+      </a>
+      <div class="hero-meta" style="justify-content: center; margin-top: 22px;">
+        <span class="apple-mark">Apple Silicon</span>
+        <span class="dot"></span>
+        <span><span class="lang-ja">Tauri 製 · 軽量</span><span class="lang-en">Built with Tauri · lightweight</span></span>
+        <span class="dot"></span>
+        <span><span class="lang-ja">バックグラウンド通信なし</span><span class="lang-en">No background telemetry</span></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FOOTER
+       ============================================================ -->
+  <footer>
+    <div class="container foot-inner">
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <span class="brand-mark" style="width:22px;height:22px;font-size:13px;">A</span>
+        <span style="font-family: var(--font-display); font-weight:500; color: var(--ink-2);">Atelie</span>
+        <span class="foot-mono">© 2026 · MADE WITH CARE</span>
+      </div>
+      <div class="foot-links">
+        <a href="https://github.com/ryo-kame/atelie-releases" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://github.com/ryo-kame/atelie-releases/releases" target="_blank" rel="noopener"><span class="lang-ja">リリース</span><span class="lang-en">Releases</span></a>
+      </div>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+  // ============================================================
+  // Language + theme — vanilla so the page is editable in source.
+  // ============================================================
+  (function () {
+    const root = document.documentElement;
+
+    // Lang toggle
+    function setLang(lang) {
+      root.setAttribute('data-lang', lang);
+      root.setAttribute('lang', lang);
+      document.querySelectorAll('[data-set-lang]').forEach(btn => {
+        btn.classList.toggle('is-active', btn.dataset.setLang === lang);
+      });
+      try { localStorage.setItem('atelie:lang', lang); } catch(e) {}
+    }
+    document.querySelectorAll('[data-set-lang]').forEach(btn => {
+      btn.addEventListener('click', () => setLang(btn.dataset.setLang));
+    });
+    try {
+      const saved = localStorage.getItem('atelie:lang');
+      if (saved === 'ja' || saved === 'en') setLang(saved);
+    } catch(e) {}
+
+    // Theme toggle (header button)
+    const sunPath = '<circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22"/><line x1="4.93" y1="4.93" x2="6.34" y2="6.34"/><line x1="17.66" y1="17.66" x2="19.07" y2="19.07"/><line x1="2" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="22" y2="12"/><line x1="4.93" y1="19.07" x2="6.34" y2="17.66"/><line x1="17.66" y1="6.34" x2="19.07" y2="4.93"/>';
+    const moonPath = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>';
+
+    function setTheme(theme) {
+      root.setAttribute('data-theme', theme);
+      const icon = document.getElementById('themeIcon');
+      if (icon) icon.innerHTML = theme === 'dark' ? sunPath : moonPath;
+      try { localStorage.setItem('atelie:theme', theme); } catch(e) {}
+    }
+    document.getElementById('themeToggle')?.addEventListener('click', () => {
+      const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      setTheme(next);
+    });
+    try {
+      const saved = localStorage.getItem('atelie:theme');
+      if (saved === 'dark' || saved === 'light') setTheme(saved);
+    } catch(e) {}
+  })();
+</script>
+
+</body>
+</html>
