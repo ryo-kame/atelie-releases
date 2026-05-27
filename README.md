@@ -18,3 +18,6 @@ Each release contains:
 
 Updater artifacts are signed with the ed25519 public key embedded in the app
 (`13AD67F331E855C4`).
+
+https://github.com/user-attachments/assets/192a9f91-430a-494e-a144-f5e567325a43
+
