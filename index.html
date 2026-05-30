@@ -1119,8 +1119,8 @@
         </div>
         <h1 class="hero-title">
           <span class="lang-ja">
-            <span class="phrase">ノートと <em>タスク</em>。</span><br>
-            <span class="phrase">データは、</span><span class="phrase">ぜんぶ</span><span class="phrase">手元の<span class="stroke">マークダウン</span>。</span>
+            <span class="phrase">SaaSから、ノートと <em>タスク</em> を取り戻す。</span><br>
+            <span class="phrase">すべては手元の<span class="stroke">マークダウン</span>に。</span>
           </span>
           <span class="lang-en">
             Notes &amp; <em>tasks</em>.<br>
@@ -1129,7 +1129,7 @@
         </h1>
         <p class="hero-sub">
           <span class="lang-ja">
-            フリーランス開発者のための、シングルユーザー・オフライン専用のプロジェクト管理ツール。<code style="font-family:var(--font-mono); font-size:13px; color:var(--accent-ink); background:var(--accent-tint); padding:1px 6px; border-radius:4px;">~/Atelie/projects/</code> 配下の <code style="font-family:var(--font-mono); font-size:13px; color:var(--accent-ink); background:var(--accent-tint); padding:1px 6px; border-radius:4px;">.md</code> ファイルがデータ。SQLite は破棄可能なキャッシュにすぎません。
+            個人開発者のための、完全オフラインなタスク管理ツール。データの実体はローカルの <code style="font-family:var(--font-mono); font-size:13px; color:var(--accent-ink); background:var(--accent-tint); padding:1px 6px; border-radius:4px;">.md</code> ファイルであり、データベースは単なるインデックスに過ぎません。<strong>万が一アプリを消しても、あなたのデータは手元に残り続けます。</strong>
           </span>
           <span class="lang-en">
             A single-user, offline-only project notebook for freelance developers. Plain Markdown files under your home folder are the data — SQLite is just a disposable cache.
@@ -1163,11 +1163,11 @@
     <div class="container">
       <div class="section-eyebrow"><span class="lang-ja">デモ</span><span class="lang-en">See it in motion</span></div>
       <h2 class="section-title">
-        <span class="lang-ja">触れば、<em>一目で</em>わかる。</span>
+        <span class="lang-ja">信じられないほどの、<em>軽快さ</em>。</span>
         <span class="lang-en">A <em>minute</em> with Atelie.</span>
       </h2>
       <p class="section-lede">
-        <span class="lang-ja">ノートを書き、カンバンでカードを動かし、横断検索する——実際の操作をそのまま。</span>
+        <span class="lang-ja">ノートの執筆、カンバンの移動、横断検索。すべてがミリ秒単位で完結する、実際の操作レスポンスをご覧ください。</span>
         <span class="lang-en">Write a note, drag a card across the board, search across everything — the real app, no edits.</span>
       </p>
       <div class="hero-video">
@@ -1186,11 +1186,11 @@
       <div>
         <div class="manifesto-tag"><span class="lang-ja">設計思想</span><span class="lang-en">Philosophy</span></div>
         <h2>
-          <span class="lang-ja">クラウドではなく、<em>あなたのディスク</em>に。</span>
+          <span class="lang-ja">データは他人のサーバーではなく、<em>あなたのディスク</em> に。</span>
           <span class="lang-en">On <em>your disk</em>, not the cloud.</span>
         </h2>
         <p style="margin-top: 20px; color: var(--ink-2); font-size: 15px; line-height: 1.7; max-width: 380px;">
-          <span class="lang-ja">Atelie はあなたのノートを他人のサーバーに預けません。ファイルはあなたのもの。同期は、あなたが選んだ git に任せます。</span>
+          <span class="lang-ja">Atelieがあなたのデータを外部へ送信することは絶対にありません。同期もアプリではなく、あなたが使い慣れた <code style="font-family:var(--font-mono); font-size:13px; color:var(--accent-ink); background:var(--accent-tint); padding:1px 5px; border-radius:4px;">git</code> に任せましょう。</span>
           <span class="lang-en">Atelie never sends your notes to someone else's server. Files are yours. Sync is your <code style="font-family:var(--font-mono); font-size:13px; color:var(--accent-ink); background:var(--accent-tint); padding:1px 5px; border-radius:4px;">git</code>'s responsibility — not the app's.</span>
         </p>
       </div>
@@ -1198,9 +1198,9 @@
         <div class="principle">
           <div class="num">01</div>
           <div>
-            <h3><span class="lang-ja">データはすべてマークダウン</span><span class="lang-en">Markdown is the source of truth</span></h3>
+            <h3><span class="lang-ja">データはプレーンなマークダウン</span><span class="lang-en">Markdown is the source of truth</span></h3>
             <p>
-              <span class="lang-ja"><code>~/Atelie/projects/{project-id}/{slug}.md</code> がデータそのもの。アプリを消してもノートは残ります。</span>
+              <span class="lang-ja">データの実体はローカルの <code>.md</code> ファイル。独自のデータベースにあなたをロックインしません。</span>
               <span class="lang-en">Every note lives as a plain <code>.md</code> file under your workspace. Uninstall Atelie tomorrow — your notes are still right there.</span>
             </p>
           </div>
@@ -1208,9 +1208,9 @@
         <div class="principle">
           <div class="num">02</div>
           <div>
-            <h3><span class="lang-ja">オフライン専用・シングルユーザー</span><span class="lang-en">Offline-only, single-user</span></h3>
+            <h3><span class="lang-ja">外界からの完全な隔離</span><span class="lang-en">Offline-only, single-user</span></h3>
             <p>
-              <span class="lang-ja">外部APIなし、認証なし、テレメトリなし。例外は起動時のアップデート確認だけで、これも無効化できます。</span>
+              <span class="lang-ja">アカウント登録も、裏側での通信（テレメトリ）も一切ありません。例外はアップデートチェックだけで、これも opt-out 可能。</span>
               <span class="lang-en">No external APIs, no auth, no telemetry. The one exception is the update check on launch — and you can opt out.</span>
             </p>
           </div>
@@ -1218,9 +1218,9 @@
         <div class="principle">
           <div class="num">03</div>
           <div>
-            <h3><span class="lang-ja">同期はあなた次第</span><span class="lang-en">Sync is your responsibility</span></h3>
+            <h3><span class="lang-ja">同期は git で自由にコントロール</span><span class="lang-en">Sync is your responsibility</span></h3>
             <p>
-              <span class="lang-ja">アプリは <code>git</code> を呼びません。ワークスペースで <code>git init</code> するだけで、好みのリモートと同期できます。</span>
+              <span class="lang-ja">謎のバックグラウンド同期はしません。<code>git init</code> すれば、好きなリモートリポジトリで安全にデータを管理できます。</span>
               <span class="lang-en">The app doesn't call <code>git</code>. Run <code>git init</code> in your workspace once, then sync to whichever remote you trust.</span>
             </p>
           </div>
@@ -1256,11 +1256,11 @@
     <div class="container">
       <div class="section-eyebrow"><span class="lang-ja">主要機能</span><span class="lang-en">Features</span></div>
       <h2 class="section-title">
-        <span class="lang-ja">小さく、<em>静かに</em>、しっかり仕事をする。</span>
+        <span class="lang-ja">機能は最小限。動作は <em>最速</em>。</span>
         <span class="lang-en">Small, <em>quiet</em>, and gets out of the way.</span>
       </h2>
       <p class="section-lede">
-        <span class="lang-ja">過剰な機能はありません。フリーランス開発者が毎日のタスクとノートを管理するために必要なものだけを、きちんと作りました。</span>
+        <span class="lang-ja">なんでもできる重いSaaSは、もう要りません。個人の開発者が毎日のタスクとノートを管理するために必要な機能だけを、極限まで磨き上げました。</span>
         <span class="lang-en">No feature creep. Just what a freelance developer actually needs to track tasks and notes day to day — built carefully.</span>
       </p>
 
@@ -1417,11 +1417,11 @@
   <section class="closer">
     <div class="container">
       <h2>
-        <span class="lang-ja">あなたのノートを、<em>あなたのものに</em>。</span>
+        <span class="lang-ja">さあ、タスク管理を <em>ローカル</em> へ。</span>
         <span class="lang-en">Your notes, <em>made yours</em>.</span>
       </h2>
       <p>
-        <span class="lang-ja">DMG をマウントし、アプリケーションフォルダにドラッグ、ダブルクリック。それだけです。</span>
+        <span class="lang-ja">DMGをダウンロードして「アプリケーション」フォルダに配置するだけ。アカウント登録なしで、今すぐ使い始められます。</span>
         <span class="lang-en">Mount the DMG, drag it to Applications, double-click. That's it.</span>
       </p>
       <a class="btn btn-primary btn-lg" href="https://github.com/ryo-kame/atelie-releases/releases/latest" target="_blank" rel="noopener">
