@@ -348,6 +348,10 @@
     position: relative;
     display: inline-block;
   }
+  /* Keep Japanese phrase units from breaking mid-phrase */
+  h1.hero-title .phrase {
+    display: inline-block;
+  }
   h1.hero-title .stroke::after {
     content: "";
     position: absolute;
@@ -1115,8 +1119,8 @@
         </div>
         <h1 class="hero-title">
           <span class="lang-ja">
-            ノートと <em>タスク</em>。<br>
-            <span class="stroke">マークダウン</span>が真実の源。
+            <span class="phrase">ノートと <em>タスク</em>。</span><br>
+            <span class="phrase">データは、</span><span class="phrase">ぜんぶ</span><span class="phrase">手元の<span class="stroke">マークダウン</span>。</span>
           </span>
           <span class="lang-en">
             Notes &amp; <em>tasks</em>.<br>
@@ -1134,7 +1138,7 @@
         <div class="hero-cta">
           <a class="btn btn-primary btn-lg" href="https://github.com/ryo-kame/atelie-releases/releases/latest" target="_blank" rel="noopener">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.05 20.28c-.98.95-2.05.86-3.08.43-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.43C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg>
-            <span class="lang-ja">macOS用ダウンロード</span><span class="lang-en">Download for macOS</span>
+            <span class="lang-ja">macOS版をダウンロード</span><span class="lang-en">Download for macOS</span>
           </a>
           <a class="btn btn-lg" href="https://github.com/ryo-kame/atelie-releases/releases" target="_blank" rel="noopener">
             <span class="lang-ja">すべてのリリース</span><span class="lang-en">All releases</span>
@@ -1186,7 +1190,7 @@
           <span class="lang-en">On <em>your disk</em>, not the cloud.</span>
         </h2>
         <p style="margin-top: 20px; color: var(--ink-2); font-size: 15px; line-height: 1.7; max-width: 380px;">
-          <span class="lang-ja">Atelie はあなたのノートを他人のサーバーに預けません。ファイルはあなたのもの。同期はあなたが選んだ git の責任です。</span>
+          <span class="lang-ja">Atelie はあなたのノートを他人のサーバーに預けません。ファイルはあなたのもの。同期は、あなたが選んだ git に任せます。</span>
           <span class="lang-en">Atelie never sends your notes to someone else's server. Files are yours. Sync is your <code style="font-family:var(--font-mono); font-size:13px; color:var(--accent-ink); background:var(--accent-tint); padding:1px 5px; border-radius:4px;">git</code>'s responsibility — not the app's.</span>
         </p>
       </div>
@@ -1194,7 +1198,7 @@
         <div class="principle">
           <div class="num">01</div>
           <div>
-            <h3><span class="lang-ja">マークダウンが真実の源</span><span class="lang-en">Markdown is the source of truth</span></h3>
+            <h3><span class="lang-ja">データはすべてマークダウン</span><span class="lang-en">Markdown is the source of truth</span></h3>
             <p>
               <span class="lang-ja"><code>~/Atelie/projects/{project-id}/{slug}.md</code> がデータそのもの。アプリを消してもノートは残ります。</span>
               <span class="lang-en">Every note lives as a plain <code>.md</code> file under your workspace. Uninstall Atelie tomorrow — your notes are still right there.</span>
@@ -1206,7 +1210,7 @@
           <div>
             <h3><span class="lang-ja">オフライン専用・シングルユーザー</span><span class="lang-en">Offline-only, single-user</span></h3>
             <p>
-              <span class="lang-ja">外部APIなし、認証なし、テレメトリなし。例外はアップデートチェックだけで、これも opt-out 可能。</span>
+              <span class="lang-ja">外部APIなし、認証なし、テレメトリなし。例外は起動時のアップデート確認だけで、これも無効化できます。</span>
               <span class="lang-en">No external APIs, no auth, no telemetry. The one exception is the update check on launch — and you can opt out.</span>
             </p>
           </div>
@@ -1214,7 +1218,7 @@
         <div class="principle">
           <div class="num">03</div>
           <div>
-            <h3><span class="lang-ja">同期はあなたの責任</span><span class="lang-en">Sync is your responsibility</span></h3>
+            <h3><span class="lang-ja">同期はあなた次第</span><span class="lang-en">Sync is your responsibility</span></h3>
             <p>
               <span class="lang-ja">アプリは <code>git</code> を呼びません。ワークスペースで <code>git init</code> するだけで、好みのリモートと同期できます。</span>
               <span class="lang-en">The app doesn't call <code>git</code>. Run <code>git init</code> in your workspace once, then sync to whichever remote you trust.</span>
@@ -1289,7 +1293,7 @@
           <div class="f-ico">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="6" height="18" rx="1"/><rect x="11" y="3" width="6" height="11" rx="1"/><rect x="19" y="3" width="2" height="7" rx="1"/></svg>
           </div>
-          <h3><span class="lang-ja">3 つのビュー、1 つのソース</span><span class="lang-en">Three views, one source</span></h3>
+          <h3><span class="lang-ja">3 つのビュー、データは一つ</span><span class="lang-en">Three views, one source</span></h3>
           <p>
             <span class="lang-ja">Kanban でドラッグ、Table でソート、Calendar で期限俯瞰。ドロップすると frontmatter に書き戻ります。</span>
             <span class="lang-en">Drag in Kanban, sort in Table, scan deadlines in Calendar. Drops write back to frontmatter.</span>
@@ -1388,7 +1392,7 @@
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
               </span>
               <div style="font-family: var(--font-display); font-weight: 500; font-size: 26px; line-height: 1.15; letter-spacing: -0.018em; font-variation-settings: 'opsz' 48; color: var(--ink-1);">
-                <span class="lang-ja">起動時に静かに最新化</span>
+                <span class="lang-ja">起動時にそっと最新へ</span>
                 <span class="lang-en">Quietly stays current</span>
               </div>
             </div>
@@ -1417,7 +1421,7 @@
         <span class="lang-en">Your notes, <em>made yours</em>.</span>
       </h2>
       <p>
-        <span class="lang-ja">DMG をマウントし、アプリケーションズにドラッグ、ダブルクリック。それだけです。</span>
+        <span class="lang-ja">DMG をマウントし、アプリケーションフォルダにドラッグ、ダブルクリック。それだけです。</span>
         <span class="lang-en">Mount the DMG, drag it to Applications, double-click. That's it.</span>
       </p>
       <a class="btn btn-primary btn-lg" href="https://github.com/ryo-kame/atelie-releases/releases/latest" target="_blank" rel="noopener">
