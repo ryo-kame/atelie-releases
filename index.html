@@ -1158,7 +1158,7 @@
           <span class="dot"></span>
           <span><span class="lang-ja">Tauri 製 · 軽いネイティブアプリ</span><span class="lang-en">Built with Tauri · a tiny native app</span></span>
           <span class="dot"></span>
-          <span><span class="lang-ja">ローカルのみ · 通信なし</span><span class="lang-en">Runs locally · no network</span></span>
+          <span><span class="lang-ja">ローカルのみ · 更新確認以外は通信なし</span><span class="lang-en">Runs locally · no network beyond updates</span></span>
         </div>
       </div>
     </div>
@@ -1291,10 +1291,10 @@
           </div>
           <h3><span class="lang-ja">Wikilink + バックリンク</span><span class="lang-en">Wikilinks + backlinks</span></h3>
           <p>
-            <span class="lang-ja"><code>[[note-id]]</code> で双方向リンク。<code>id</code> が安定参照なので、ファイル名を変えてもリンクは切れません。</span>
-            <span class="lang-en"><code>[[note-id]]</code> creates a two-way link. Stable IDs mean renaming the file never breaks anything.</span>
+            <span class="lang-ja"><code>[[ノート]]</code> で双方向リンク。id・ファイル名・タイトルのいずれでも解決でき、id は安定参照なのでファイル名を変えてもリンクは切れません。</span>
+            <span class="lang-en"><code>[[note]]</code> creates a two-way link — resolved by id, filename, or title. Stable IDs mean renaming the file never breaks anything.</span>
           </p>
-          <div class="f-foot"><span class="swatch"></span><code style="background:transparent;padding:0;color:inherit;">[[t-001]]</code></div>
+          <div class="f-foot"><span class="swatch"></span><code style="background:transparent;padding:0;color:inherit;">[[t-aB3xK9mq]]</code></div>
         </div>
 
         <div class="feature">
@@ -1346,8 +1346,8 @@
             <span class="lang-en">Signed, notarized, and <em>verifiable</em></span>
           </h2>
           <p style="margin-bottom: 22px;">
-            <span class="lang-ja">公証は Apple による「お墨付き」ではなく、マルウェア検査を通したという事実です。Atelie はさらに <code style="font-family:var(--font-mono);font-size:13px;color:var(--accent-ink);background:var(--accent-tint);padding:1px 6px;border-radius:4px;">reqwest</code> などの通信ライブラリ自体を同梱していません。署名は下のコマンドで誰でも検証できます。</span>
-            <span class="lang-en">Notarization isn't an endorsement — it means Apple scanned the build for malware. Beyond that, Atelie ships no networking library (<code style="font-family:var(--font-mono);font-size:13px;color:var(--accent-ink);background:var(--accent-tint);padding:1px 6px;border-radius:4px;">reqwest</code> and friends are simply not a dependency). Verify the signature yourself:</span>
+            <span class="lang-ja">公証は Apple による「お墨付き」ではなく、マルウェア検査を通したという事実です。Atelie がネットワークに触れるのは opt-out 可能なアップデート確認のときだけで、ノートやタスクの機能が勝手に通信することはありません。署名は下のコマンドで誰でも検証できます。</span>
+            <span class="lang-en">Notarization isn't an endorsement — it means Apple scanned the build for malware. The only time Atelie touches the network is the opt-out update check; no note- or task-editing feature reaches out on its own. Verify the signature yourself:</span>
           </p>
           <pre style="margin:0;padding:16px 18px;background:var(--bg-sunken);border:1px solid var(--line-1);border-radius:var(--r-md);font-family:var(--font-mono);font-size:12px;line-height:1.7;color:var(--ink-2);overflow-x:auto;white-space:pre;"><span style="color:var(--ink-3);"># Confirm the Apple Developer ID signature</span>
 codesign -dv --verbose=4 /Applications/Atelie.app
@@ -1385,7 +1385,7 @@ spctl -a -vvv -t install /Applications/Atelie.app
           <li>
             <span class="tick"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg></span>
             <div>
-              <div class="lbl"><span class="lang-ja">通信ライブラリを同梱しない</span><span class="lang-en">Ships no networking library</span></div>
+              <div class="lbl"><span class="lang-ja">ネット接続は更新確認だけ</span><span class="lang-en">Network only for updates</span></div>
               <div class="sub"><span class="lang-ja">通信は opt-out 可能なアップデート確認だけ</span><span class="lang-en">Only the opt-out update check talks to the network</span></div>
             </div>
             <span class="hash">no net</span>
