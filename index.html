@@ -793,7 +793,7 @@
      ============================================================ */
   .features {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 1px;
     background: var(--line-1);
     border: 1px solid var(--line-1);
@@ -1298,18 +1298,6 @@
 
         <div class="feature">
           <div class="f-ico">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="6" height="18" rx="1"/><rect x="11" y="3" width="6" height="11" rx="1"/><rect x="19" y="3" width="2" height="7" rx="1"/></svg>
-          </div>
-          <h3><span class="lang-ja">3 つのビュー、データは一つ</span><span class="lang-en">Three views, one source</span></h3>
-          <p>
-            <span class="lang-ja"><span class="np">Kanban で</span>ドラッグ、<span class="np">Table で</span>ソート、<span class="np">Calendar で</span>期限俯瞰。ドロップすると frontmatter に書き戻します。</span>
-            <span class="lang-en">Drag in Kanban, sort in Table, scan deadlines in Calendar. Drops write back to frontmatter.</span>
-          </p>
-          <div class="f-foot"><span class="swatch"></span>Kanban · Table · Calendar</div>
-        </div>
-
-        <div class="feature">
-          <div class="f-ico">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
           </div>
           <h3><span class="lang-ja">全文検索（日本語対応）</span><span class="lang-en">Full-text search (Japanese)</span></h3>
@@ -1322,26 +1310,14 @@
 
         <div class="feature">
           <div class="f-ico">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.6 1.65 1.65 0 0 0 10 3.09V3a2 2 0 0 1 4 0v.09A1.65 1.65 0 0 0 15 4.6a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9c.18.43.59.74 1.06.74H21a2 2 0 0 1 0 4h-.09A1.65 1.65 0 0 0 19.4 15z"/></svg>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="6 9 9 12 6 15"/><line x1="12" y1="15" x2="16" y2="15"/></svg>
           </div>
-          <h3><span class="lang-ja">プロジェクト別ステータス</span><span class="lang-en">Per-project statuses</span></h3>
+          <h3><span class="lang-ja">ターミナル内蔵、AI で編集</span><span class="lang-en">Built-in terminal, edit with AI</span></h3>
           <p>
-            <span class="lang-ja">デフォルトは <code>todo / doing / review / blocked / done</code>。プロジェクトごとに <code>.atelie/config.yml</code> でカスタマイズ。</span>
-            <span class="lang-en">Defaults to <code>todo / doing / review / blocked / done</code>. Customize per project via <code>.atelie/config.yml</code>.</span>
+            <span class="lang-ja">ターミナルを内蔵。<span class="np">使い慣れた</span> <span class="np">AI エージェントから</span>、<span class="np">タスクの詳細や</span>ノートを直接編集できます。</span>
+            <span class="lang-en">A terminal is built right in — drive your favorite AI agent to edit task details and notes without leaving Atelie.</span>
           </p>
-          <div class="f-foot"><span class="swatch"></span>statuses.yml</div>
-        </div>
-
-        <div class="feature">
-          <div class="f-ico">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
-          </div>
-          <h3><span class="lang-ja">外部編集の自動取り込み</span><span class="lang-en">External-edit watcher</span></h3>
-          <p>
-            <span class="lang-ja">VS Code や Neovim で <code>.md</code> を直接編集しても、Atelie がファイル監視で即座に反映します。</span>
-            <span class="lang-en">Edit the <code>.md</code> in VS Code or Neovim — Atelie's file watcher picks it up instantly.</span>
-          </p>
-          <div class="f-foot"><span class="swatch"></span>notify-rs · debounced</div>
+          <div class="f-foot"><span class="swatch"></span>terminal · AI agent</div>
         </div>
       </div>
     </div>
