@@ -307,9 +307,11 @@
   }
   .hero-grid {
     display: block;
-    max-width: 880px;
+    max-width: 740px;
+    margin: 0 auto;
+    text-align: center;
   }
-  .hero-copy { max-width: 760px; }
+  .hero-copy { max-width: 100%; }
 
   .eyebrow {
     display: inline-flex;
@@ -368,8 +370,8 @@
     font-size: 17px;
     line-height: 1.65;
     color: var(--ink-2);
-    max-width: 460px;
-    margin: 0 0 36px;
+    max-width: 540px;
+    margin: 0 auto 36px;
     text-wrap: pretty;
   }
   :root[data-lang="ja"] .hero-sub { font-size: 16px; line-height: 1.85; }
@@ -377,6 +379,7 @@
   .hero-cta {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 12px;
     flex-wrap: wrap;
     margin-bottom: 24px;
@@ -384,6 +387,7 @@
   .hero-meta {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 14px;
     flex-wrap: wrap;
     font-size: 12.5px;
@@ -1119,7 +1123,6 @@
         </div>
         <h1 class="hero-title">
           <span class="lang-ja">
-            <span class="phrase">SaaSからノートと<em>タスク</em>を取り戻す</span><br>
             <span class="phrase">すべては手元の<span class="stroke">マークダウン</span>に</span>
           </span>
           <span class="lang-en">
