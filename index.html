@@ -1098,6 +1098,7 @@
         <a class="nav-link" href="#demo"><span class="lang-ja">デモ</span><span class="lang-en">Demo</span></a>
         <a class="nav-link" href="#features"><span class="lang-ja">機能</span><span class="lang-en">Features</span></a>
         <a class="nav-link" href="#philosophy"><span class="lang-ja">設計思想</span><span class="lang-en">Philosophy</span></a>
+        <a class="nav-link" href="#trust"><span class="lang-ja">安全性</span><span class="lang-en">Security</span></a>
         <a class="nav-link" href="#specs"><span class="lang-ja">動作環境</span><span class="lang-en">Specs</span></a>
       </div>
       <div class="lang-toggle" role="tablist" aria-label="Language">
@@ -1319,6 +1320,77 @@
           </p>
           <div class="f-foot"><span class="swatch"></span>terminal · AI agent</div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       TRUST — signing / notarization / verification
+       ============================================================ -->
+  <section id="trust">
+    <div class="container">
+      <div class="section-eyebrow"><span class="lang-ja">安全性</span><span class="lang-en">Security</span></div>
+      <h2 class="section-title">
+        <span class="lang-ja">Apple が署名を<em>検証済み</em></span>
+        <span class="lang-en">Signed by Apple. <em>Verify it yourself.</em></span>
+      </h2>
+      <p class="section-lede">
+        <span class="lang-ja">配布する DMG は Apple Developer ID で署名され、Apple の公証（notarization）を通っています。だから macOS は警告なしで開きます。「信じてください」ではなく、ご自身のターミナルで確かめられます。</span>
+        <span class="lang-en">Every DMG is code-signed with an Apple Developer ID and notarized by Apple, so macOS opens it with no security warning. You don't have to take our word for it — confirm it in your own terminal.</span>
+      </p>
+
+      <div class="trust">
+        <div>
+          <h2>
+            <span class="lang-ja">署名され、公証され、<em>検証できる</em></span>
+            <span class="lang-en">Signed, notarized, and <em>verifiable</em></span>
+          </h2>
+          <p style="margin-bottom: 22px;">
+            <span class="lang-ja">公証は Apple による「お墨付き」ではなく、マルウェア検査を通したという事実です。Atelie はさらに <code style="font-family:var(--font-mono);font-size:13px;color:var(--accent-ink);background:var(--accent-tint);padding:1px 6px;border-radius:4px;">reqwest</code> などの通信ライブラリ自体を同梱していません。署名は下のコマンドで誰でも検証できます。</span>
+            <span class="lang-en">Notarization isn't an endorsement — it means Apple scanned the build for malware. Beyond that, Atelie ships no networking library (<code style="font-family:var(--font-mono);font-size:13px;color:var(--accent-ink);background:var(--accent-tint);padding:1px 6px;border-radius:4px;">reqwest</code> and friends are simply not a dependency). Verify the signature yourself:</span>
+          </p>
+          <pre style="margin:0;padding:16px 18px;background:var(--bg-sunken);border:1px solid var(--line-1);border-radius:var(--r-md);font-family:var(--font-mono);font-size:12px;line-height:1.7;color:var(--ink-2);overflow-x:auto;white-space:pre;"><span style="color:var(--ink-3);"># Confirm the Apple Developer ID signature</span>
+codesign -dv --verbose=4 /Applications/Atelie.app
+
+<span style="color:var(--ink-3);"># Confirm Gatekeeper sees it as notarized</span>
+spctl -a -vvv -t install /Applications/Atelie.app
+<span style="color:var(--ink-3);"># → source=Notarized Developer ID</span></pre>
+        </div>
+
+        <ul class="trust-list">
+          <li>
+            <span class="tick"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg></span>
+            <div>
+              <div class="lbl"><span class="lang-ja">Apple Developer ID で署名</span><span class="lang-en">Code-signed with an Apple Developer ID</span></div>
+              <div class="sub"><span class="lang-ja">発行元を macOS が確認できる</span><span class="lang-en">macOS can confirm the publisher</span></div>
+            </div>
+            <span class="hash">codesign</span>
+          </li>
+          <li>
+            <span class="tick"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg></span>
+            <div>
+              <div class="lbl"><span class="lang-ja">Apple による公証済み</span><span class="lang-en">Notarized by Apple</span></div>
+              <div class="sub"><span class="lang-ja">マルウェア検査を通過・警告なしで起動</span><span class="lang-en">Malware-scanned · opens with no warning</span></div>
+            </div>
+            <span class="hash">spctl</span>
+          </li>
+          <li>
+            <span class="tick"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg></span>
+            <div>
+              <div class="lbl"><span class="lang-ja">公証チケットを staple 済み</span><span class="lang-en">Notarization ticket stapled</span></div>
+              <div class="sub"><span class="lang-ja">完全オフラインでも検証が通る</span><span class="lang-en">Verifies even fully offline</span></div>
+            </div>
+            <span class="hash">stapler</span>
+          </li>
+          <li>
+            <span class="tick"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg></span>
+            <div>
+              <div class="lbl"><span class="lang-ja">通信ライブラリを同梱しない</span><span class="lang-en">Ships no networking library</span></div>
+              <div class="sub"><span class="lang-ja">通信は opt-out 可能なアップデート確認だけ</span><span class="lang-en">Only the opt-out update check talks to the network</span></div>
+            </div>
+            <span class="hash">no net</span>
+          </li>
+        </ul>
       </div>
     </div>
   </section>
