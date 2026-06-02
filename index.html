@@ -363,10 +363,12 @@
     font-style: italic;
     color: var(--accent);
     font-variation-settings: "opsz" 144, "SOFT" 100;
+    white-space: nowrap;
   }
   h1.hero-title .stroke {
     position: relative;
     display: inline-block;
+    white-space: nowrap;
   }
   /* Keep Japanese phrase units from breaking mid-phrase */
   h1.hero-title .phrase {
@@ -393,7 +395,7 @@
     text-wrap: pretty;
   }
   :root[data-lang="ja"] .hero-sub { font-size: 16px; line-height: 1.85; }
-  :root[data-lang="ja"] h1.hero-title { font-size: clamp(40px, 4.8vw, 62px); line-height: 1.32; letter-spacing: 0.005em; }
+  :root[data-lang="ja"] h1.hero-title { font-size: clamp(40px, 4.4vw, 58px); line-height: 1.32; letter-spacing: 0.005em; }
   :root[data-lang="ja"] h1.hero-title .phrase { display: block; }
 
   .hero-cta {
@@ -1091,6 +1093,7 @@
   @media (max-width: 640px) {
     .nav-links { display: none; }
     h1.hero-title { font-size: clamp(34px, 9vw, 44px); }
+    :root[data-lang="ja"] h1.hero-title { font-size: clamp(32px, 7.6vw, 46px); }
     .hero { padding: 56px 0 48px; }
     .trust { padding: 24px 20px; gap: 32px; }
     .spec-card { padding: 28px 22px; }
@@ -1155,7 +1158,7 @@
         </div>
         <h1 class="hero-title">
           <span class="lang-ja">
-            <span class="phrase">ボード・タスク・<em>ノート</em></span>
+            <span class="phrase"><span class="np">ボード</span>・<span class="np">タスク</span>・<em>ノート</em></span>
             <span class="phrase">すべて<span class="stroke">マークダウン</span></span>
           </span>
           <span class="lang-en">
@@ -1165,7 +1168,7 @@
         </h1>
         <p class="hero-sub">
           <span class="lang-ja">
-            開発者のための、ローカルファーストなプロジェクト管理ツール。カンバンボード、横断カレンダー、絞り込めるタスク一覧、<span class="np">Obsidian 風の</span>バックリンク。データはすべて、自分で選んだフォルダの中の <code style="font-family:var(--font-mono); font-size:13px; color:var(--accent-ink); background:var(--accent-tint); padding:1px 6px; border-radius:4px;">.md</code> ファイルです。<strong>完全オフラインで動き、内蔵ターミナルの Claude Code や <code style="font-family:var(--font-mono); font-size:13px; color:var(--accent-ink); background:var(--accent-tint); padding:1px 6px; border-radius:4px;">gh</code> からそのまま編集できます。</strong>
+            開発者のための、<span class="np">ローカルファースト</span>な<span class="np">プロジェクト</span>管理ツール。<span class="np">カンバンボード</span>、<span class="np">横断カレンダー</span>、絞り込める<span class="np">タスク</span>一覧、<span class="np">Obsidian 風の</span><span class="np">バックリンク</span>。データはすべて、自分で選んだ<span class="np">フォルダ</span>の中の <code style="font-family:var(--font-mono); font-size:13px; color:var(--accent-ink); background:var(--accent-tint); padding:1px 6px; border-radius:4px;">.md</code> <span class="np">ファイル</span>です。<strong>完全オフラインで動き、内蔵<span class="np">ターミナル</span>の <span class="np">Claude Code</span> や <code style="font-family:var(--font-mono); font-size:13px; color:var(--accent-ink); background:var(--accent-tint); padding:1px 6px; border-radius:4px;">gh</code> からそのまま編集できます。</strong>
           </span>
           <span class="lang-en">
             A local-first project manager for developers. Kanban boards, a cross-project calendar, a filterable task database, and Obsidian-style backlinks — all backed by plain <code style="font-family:var(--font-mono); font-size:13px; color:var(--accent-ink); background:var(--accent-tint); padding:1px 6px; border-radius:4px;">.md</code> files in a folder you own. Offline by default, with a built-in terminal so Claude Code and <code style="font-family:var(--font-mono); font-size:13px; color:var(--accent-ink); background:var(--accent-tint); padding:1px 6px; border-radius:4px;">gh</code> work on your tasks directly. No account, no telemetry.
@@ -1208,7 +1211,7 @@
         <span class="lang-en">A <em>minute</em> with Atelie.</span>
       </h2>
       <p class="section-lede">
-        <span class="lang-ja">ノートを書く、カードを動かす、横断して検索する。</span>
+        <span class="lang-ja"><span class="np">ノート</span>を書く、<span class="np">カード</span>を動かす、横断して検索する。</span>
         <span class="lang-en">Write a note, drag a card across the board, search across everything — the real app, unedited.</span>
       </p>
       <div class="hero-video">
@@ -1231,7 +1234,7 @@
           <span class="lang-en">On <em>your disk</em>, not the cloud.</span>
         </h2>
         <p style="margin-top: 20px; color: var(--ink-2); font-size: 15px; line-height: 1.7; max-width: 380px;">
-          <span class="lang-ja">Atelie がデータを外部に送ることはありません。同期は、使い慣れた <code style="font-family:var(--font-mono); font-size:13px; color:var(--accent-ink); background:var(--accent-tint); padding:1px 5px; border-radius:4px;">git</code> でおこなえます。</span>
+          <span class="lang-ja">Atelie が<span class="np">データ</span>を外部に送ることはありません。同期は、使い慣れた <code style="font-family:var(--font-mono); font-size:13px; color:var(--accent-ink); background:var(--accent-tint); padding:1px 5px; border-radius:4px;">git</code> でおこなえます。</span>
           <span class="lang-en">Atelie never sends your notes to someone else's server. Files are yours. Sync is your <code style="font-family:var(--font-mono); font-size:13px; color:var(--accent-ink); background:var(--accent-tint); padding:1px 5px; border-radius:4px;">git</code>'s responsibility — not the app's.</span>
         </p>
       </div>
@@ -1241,7 +1244,7 @@
           <div>
             <h3><span class="lang-ja">データはプレーンなマークダウン</span><span class="lang-en">Markdown is the source of truth</span></h3>
             <p>
-              <span class="lang-ja">ノートはすべて、手元の <code>.md</code> ファイル。Atelie を消しても、ファイルはそのまま残ります。</span>
+              <span class="lang-ja"><span class="np">ノート</span>はすべて、手元の <code>.md</code> <span class="np">ファイル</span>。Atelie を消しても、<span class="np">ファイル</span>はそのまま残ります。</span>
               <span class="lang-en">Every note lives as a plain <code>.md</code> file under your workspace. Uninstall Atelie tomorrow — your notes are still right there.</span>
             </p>
           </div>
@@ -1251,7 +1254,7 @@
           <div>
             <h3><span class="lang-ja">オフライン専用・シングルユーザー</span><span class="lang-en">Offline-only, single-user</span></h3>
             <p>
-              <span class="lang-ja">アカウント登録は不要。こっそり通信（テレメトリ）することもありません。唯一の例外は起動時のアップデート確認で、これもオフにできます。</span>
+              <span class="lang-ja"><span class="np">アカウント</span>登録は不要。こっそり通信（<span class="np">テレメトリ</span>）することもありません。唯一の例外は起動時の<span class="np">アップデート</span>確認で、これもオフにできます。</span>
               <span class="lang-en">No external APIs, no auth, no telemetry. The one exception is the update check on launch — and you can opt out.</span>
             </p>
           </div>
@@ -1261,7 +1264,7 @@
           <div>
             <h3><span class="lang-ja">同期は git の役割</span><span class="lang-en">Sync is your responsibility</span></h3>
             <p>
-              <span class="lang-ja">勝手に同期することはありません。<code>git init</code> すれば、好きなリモートへ安全に同期できます。</span>
+              <span class="lang-ja">勝手に同期することはありません。<code>git init</code> すれば、好きな<span class="np">リモート</span>へ安全に同期できます。</span>
               <span class="lang-en">The app doesn't call <code>git</code>. Run <code>git init</code> in your workspace once, then sync to whichever remote you trust.</span>
             </p>
           </div>
@@ -1271,7 +1274,7 @@
           <div>
             <h3><span class="lang-ja">外部エディタと共存</span><span class="lang-en">Lives next to your editor</span></h3>
             <p>
-              <span class="lang-ja">VS Code でも Neovim でも、好きなエディタで開けます。変更は自動で取り込まれます。</span>
+              <span class="lang-ja"><span class="np">VS Code</span> でも Neovim でも、好きな<span class="np">エディタ</span>で開けます。変更は自動で取り込まれます。</span>
               <span class="lang-en">Open the same files in VS Code or Neovim. The file watcher picks up your edits automatically.</span>
             </p>
           </div>
@@ -1301,7 +1304,7 @@
         <span class="lang-en">Small, <em>quiet</em>, and gets out of the way.</span>
       </h2>
       <p class="section-lede">
-        <span class="lang-ja">多機能で重い SaaS は必要ありません。開発者が日々のタスクとノートを管理するための機能だけに絞り、丁寧に作り込みました。</span>
+        <span class="lang-ja">多機能で重い SaaS は必要ありません。開発者が日々の<span class="np">タスク</span>と<span class="np">ノート</span>を管理するための機能だけに絞り、丁寧に作り込みました。</span>
         <span class="lang-en">No feature creep. Just what a freelance developer actually needs to track tasks and notes day to day — built carefully.</span>
       </p>
 
@@ -1312,7 +1315,7 @@
           </div>
           <h3><span class="lang-ja">マークダウンエディタ</span><span class="lang-en">Markdown editor</span></h3>
           <p>
-            <span class="lang-ja">Tiptap 3 + frontmatter プロパティパネル。本文も YAML も同じファイルで一貫管理。</span>
+            <span class="lang-ja">Tiptap 3 + frontmatter <span class="np">プロパティパネル</span>。本文も YAML も同じ<span class="np">ファイル</span>で一貫管理。</span>
             <span class="lang-en">Tiptap-based editor with a YAML frontmatter property panel. One file, body and metadata together.</span>
           </p>
           <div class="f-foot"><span class="swatch"></span>Tiptap 3 · GFM</div>
@@ -1324,7 +1327,7 @@
           </div>
           <h3><span class="lang-ja">Wikilink + バックリンク</span><span class="lang-en">Wikilinks + backlinks</span></h3>
           <p>
-            <span class="lang-ja"><code>[[ノート]]</code> で双方向リンク。id・ファイル名・タイトルのいずれでも解決でき、id は安定参照なのでファイル名を変えてもリンクは切れません。</span>
+            <span class="lang-ja"><code>[[ノート]]</code> で双方向<span class="np">リンク</span>。id・<span class="np">ファイル名</span>・<span class="np">タイトル</span>のいずれでも解決でき、id は安定参照なので<span class="np">ファイル名</span>を変えても<span class="np">リンク</span>は切れません。</span>
             <span class="lang-en"><code>[[note]]</code> creates a two-way link — resolved by id, filename, or title. Stable IDs mean renaming the file never breaks anything.</span>
           </p>
           <div class="f-foot"><span class="swatch"></span><code style="background:transparent;padding:0;color:inherit;">[[t-aB3xK9mq]]</code></div>
@@ -1336,7 +1339,7 @@
           </div>
           <h3><span class="lang-ja">全文検索（日本語対応）</span><span class="lang-en">Full-text search (Japanese)</span></h3>
           <p>
-            <span class="lang-ja">SQLite FTS5 trigram tokenizer で日本語もスムーズに検索。形態素解析の罠なし。</span>
+            <span class="lang-ja"><span class="np">SQLite FTS5</span> trigram tokenizer で日本語も<span class="np">スムーズ</span>に検索。形態素解析の罠なし。</span>
             <span class="lang-en">SQLite FTS5 with a trigram tokenizer — Japanese works smoothly, no morphological analyzer pitfalls.</span>
           </p>
           <div class="f-foot"><span class="swatch"></span>FTS5 · trigram</div>
@@ -1368,7 +1371,7 @@
         <span class="lang-en">Signed &amp; notarized. <em>Verify it yourself.</em></span>
       </h2>
       <p class="section-lede">
-        <span class="lang-ja">配布する DMG は Apple Developer ID で署名され、Apple の公証も受けています。だから macOS は警告なしで開きます。「信じてください」ではなく、自分のターミナルで確かめられます。</span>
+        <span class="lang-ja">配布する DMG は <span class="np">Apple Developer ID</span> で署名され、Apple の公証も受けています。だから macOS は警告なしで開きます。「信じてください」ではなく、自分の<span class="np">ターミナル</span>で確かめられます。</span>
         <span class="lang-en">Every DMG is code-signed with an Apple Developer ID and notarized by Apple, so macOS opens it with no security warning. You don't have to take our word for it — confirm it in your own terminal.</span>
       </p>
 
@@ -1379,7 +1382,7 @@
             <span class="lang-en">Signed, notarized, and <em>verifiable</em></span>
           </h2>
           <p style="margin-bottom: 22px;">
-            <span class="lang-ja">公証とは、Apple のお墨付きという意味ではなく、マルウェア検査を通したという事実です。Atelie が通信するのは、オフにできるアップデート確認のときだけ。ノートやタスクの編集機能が勝手に通信することはありません。署名は下のコマンドで誰でも確認できます。</span>
+            <span class="lang-ja">公証とは、Apple のお墨付きという意味ではなく、<span class="np">マルウェア</span>検査を通したという事実です。Atelie が通信するのは、オフにできる<span class="np">アップデート</span>確認のときだけ。<span class="np">ノート</span>や<span class="np">タスク</span>の編集機能が勝手に通信することはありません。署名は下の<span class="np">コマンド</span>で誰でも確認できます。</span>
             <span class="lang-en">Notarization isn't an endorsement — it means Apple scanned the build for malware. The only time Atelie touches the network is the opt-out update check; no note- or task-editing feature reaches out on its own. Verify the signature yourself:</span>
           </p>
           <pre style="margin:0;padding:16px 18px;background:var(--bg-sunken);border:1px solid var(--line-1);border-radius:var(--r-md);font-family:var(--font-mono);font-size:12px;line-height:1.7;color:var(--ink-2);overflow-x:auto;white-space:pre;"><span style="color:var(--ink-3);"># Confirm the Apple Developer ID signature</span>
@@ -1485,7 +1488,7 @@ spctl -a -vvv -t install /Applications/Atelie.app
               </div>
             </div>
             <p style="margin: 0; color: var(--ink-2); font-size: 14.5px; line-height: 1.65; max-width: 380px;">
-              <span class="lang-ja">Atelie は起動時に GitHub Releases をチェックして、新しいバージョンがあれば再起動後に自動更新します。Settings から無効化することもできます。</span>
+              <span class="lang-ja">Atelie は起動時に <span class="np">GitHub Releases</span> を<span class="np">チェック</span>して、新しい<span class="np">バージョン</span>があれば再起動後に自動更新します。Settings から無効化することもできます。</span>
               <span class="lang-en">Atelie checks GitHub Releases on launch and updates itself on next restart. You can disable this anytime in Settings.</span>
             </p>
           </div>
@@ -1509,7 +1512,7 @@ spctl -a -vvv -t install /Applications/Atelie.app
         <span class="lang-en">Your notes, <em>made yours</em>.</span>
       </h2>
       <p>
-        <span class="lang-ja">DMG をダウンロードして「アプリケーション」に入れるだけ。アカウント登録は要りません。</span>
+        <span class="lang-ja">DMG を<span class="np">ダウンロード</span>して「<span class="np">アプリケーション</span>」に入れるだけ。<span class="np">アカウント</span>登録は要りません。</span>
         <span class="lang-en">Mount the DMG, drag it to Applications, double-click. That's it.</span>
       </p>
       <a class="btn btn-primary btn-lg" href="https://github.com/ryo-kame/atelie-releases/releases/latest" target="_blank" rel="noopener">
