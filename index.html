@@ -1128,19 +1128,20 @@
         </div>
         <h1 class="hero-title">
           <span class="lang-ja">
-            <span class="phrase">すべては手元の<span class="stroke">マークダウン</span>に</span>
+            <span class="phrase">タスクは、ただの<span class="stroke">マークダウン</span>。</span><br>
+            <span class="phrase"><em>Claude Code</em> がチェックを付けていく。</span>
           </span>
           <span class="lang-en">
-            Notes &amp; <em>tasks</em>.<br>
-            <span class="stroke">Markdown</span> is the source of truth.
+            Your tasks are plain <span class="stroke">Markdown</span>.<br>
+            <em>Claude Code</em> checks them off for you.
           </span>
         </h1>
         <p class="hero-sub">
           <span class="lang-ja">
-            個人開発者のための、完全オフラインなタスク管理ツール。<span class="np">データの実体は</span>ローカルの <code style="font-family:var(--font-mono); font-size:13px; color:var(--accent-ink); background:var(--accent-tint); padding:1px 6px; border-radius:4px;">.md</code> ファイルであり、<span class="np">データベースは</span>単なる<span class="np">インデックスに</span>過ぎません。<strong>万が一アプリを消しても、<span class="np">あなたのデータは</span><span class="np">手元に残り続けます。</span></strong>
+            個人開発者のための、ローカルファーストなプロジェクト管理ツール。タスクを開いて内蔵ターミナルの Claude Code に渡せば、エージェントが同じ <code style="font-family:var(--font-mono); font-size:13px; color:var(--accent-ink); background:var(--accent-tint); padding:1px 6px; border-radius:4px;">.md</code> を書き換え、<span class="np">チェックボックスが</span>自分で埋まっていく。<strong>データの実体は、<span class="np">あなたが所有する</span> .md ファイル。</strong>
           </span>
           <span class="lang-en">
-            A single-user, offline-only project notebook for freelance developers. Plain Markdown files under your home folder are the data — SQLite is just a disposable cache.
+            A local-first project manager for developers. Hand a task to Claude Code in the built-in terminal — it edits the same Markdown file, so checkboxes tick themselves off and your board is never stale. Your data is plain <code style="font-family:var(--font-mono); font-size:13px; color:var(--accent-ink); background:var(--accent-tint); padding:1px 6px; border-radius:4px;">.md</code> files you own.
           </span>
         </p>
         <div class="hero-cta">
@@ -1160,6 +1161,11 @@
           <span class="dot"></span>
           <span><span class="lang-ja">ローカルのみ · 更新確認以外は通信なし</span><span class="lang-en">Runs locally · no network beyond updates</span></span>
         </div>
+      </div>
+      <div class="hero-video" style="margin-top: 52px; aspect-ratio: 16 / 9.84;">
+        <video muted autoplay loop playsinline preload="metadata" poster="assets/hero-poster.jpg" aria-label="Hand a task to Claude Code in the built-in terminal and the Markdown checkboxes tick themselves off">
+          <source src="assets/hero-agent.mp4" type="video/mp4">
+        </video>
       </div>
     </div>
   </header>
